@@ -37,6 +37,17 @@ jobs:
           key: composer-{{ checksum "composer.json" }}
           paths:
             - vendor
+      # Yarn
+      - restore_cache:
+          name: Restore yarn cache
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-
+      - run: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-{{ checksum "composer.json" }}
 
       - run: npm run production
       - run: php artisan migrate --database=mysql
