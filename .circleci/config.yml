@@ -60,3 +60,6 @@ jobs:
           path: /phpunit
       - store_artifacts:
           path: /phpunit
+      - deploy:
+          name: digital-ocean
+          command: ssh -v $DROPLET_USER@$DROPLET_IP "cd ~/app; git pull; npm install; composer update;"
