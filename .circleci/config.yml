@@ -50,7 +50,7 @@ jobs:
           key: yarn-{{ checksum "composer.json" }}
 
       - run: npm run production
-      - run: php artisan migrate --database=mysql
+      - run: php artisan migrate
       # run tests!
       - run:
           command: |
@@ -62,4 +62,4 @@ jobs:
           path: /phpunit
       - deploy:
           name: digital-ocean
-          command: ssh -v $DROPLET_USER@$DROPLET_IP "cd ~/app; git pull; npm install; composer update;"
+          command: ssh -i ~/.ssh/cicd $DROPLET_USER@$DROPLET_IP "cd ~/app; git pull; npm install; composer update;"
