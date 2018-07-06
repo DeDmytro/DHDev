@@ -87,7 +87,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "e5:21:6c:eb:ef:0c:25:4a:02:6c:a5:68:72:93:65:84"
+            - "3a:16:8c:b4:2f:9f:06:86:06:66:81:85:48:f6:f5:f0"
       - run:
           name: Run Docker Image on Dev
           command: |
