@@ -77,8 +77,17 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       # build and push Docker image
-      - run: |
+      - run:
+          name: Build and push Docker image
+          command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -f docker/Dockerfile -t dmitrix/dhdev:$TAG  .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:$TAG
+
+      # Run Docker Image on Dev
+      - run:
+          name: Run Docker Image on Dev
+          command: |
+            ssh $DROPLET_USER@$DROPLET_IP
+            sudo docker run -d -p 80:80 dmitrix/dhdev:$TAG
