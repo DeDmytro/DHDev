@@ -87,6 +87,6 @@ jobs:
             docker push dmitrix/dhdev:$TAG
 
             ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-            ssh $DROPLET_USER@$DROPLET_IP
-            docker run -d -p 80:80 dmitrix/dhdev:$TAG
+            ssh $DROPLET_USER@$DROPLET_IP "docker run -d -p 80:80 dmitrix/dhdev:$TAG"
+
 
