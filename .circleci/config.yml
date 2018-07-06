@@ -61,5 +61,7 @@ jobs:
       - store_artifacts:
           path: /phpunit
       - deploy:
-          name: digital-ocean
-          command: ssh -i ~/.ssh/cicd $DROPLET_USER@$DROPLET_IP "cd ~/app; git pull; npm install; composer update;"
+          name: Push image to Docker Hub
+          commands:
+          - docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
+          - docker push "dmitrix/dhdev"
