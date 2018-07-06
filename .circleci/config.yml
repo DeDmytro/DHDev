@@ -19,10 +19,6 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "e5:21:6c:eb:ef:0c:25:4a:02:6c:a5:68:72:93:65:84"
-
       - checkout
 
       - run: chmod -R 777 storage
@@ -88,12 +84,12 @@ jobs:
             docker build -f docker/Dockerfile -t dmitrix/dhdev:$TAG  .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:$TAG
-      - deploy:
-          machine:
-            enabled: true
-          steps:
-            - run:
-                name: Run Docker Image on Dev
-                command: |
-                  ssh $DROPLET_USER@$DROPLET_IP
-                  sudo docker run -d -p 80:80 dmitrix/dhdev:$TAG
+
+      - add_ssh_keys:
+          fingerprints:
+            - "e5:21:6c:eb:ef:0c:25:4a:02:6c:a5:68:72:93:65:84"
+      - run:
+          name: Run Docker Image on Dev
+          command: |
+            ssh $DROPLET_USER@$DROPLET_IP
+            sudo docker run -d -p 80:80 dmitrix/dhdev:$TAG
