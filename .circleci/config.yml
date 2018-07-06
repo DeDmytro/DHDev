@@ -2,7 +2,6 @@
 version: 2
 jobs:
   build:
-    machine: true
     docker:
       # specify the version you desire here
       - image: framgia/laravel-workspace
@@ -74,9 +73,7 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       # build and push Docker image
-      - run:
-          name: Push Docker Image
-          command: |
+      - run: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t  dmitrix/dhdev:$TAG
             docker login -u $DOCKER_USER -p $DOCKER_PASS
