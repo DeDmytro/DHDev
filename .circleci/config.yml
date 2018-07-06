@@ -60,7 +60,6 @@ jobs:
           path: /phpunit
       - store_artifacts:
           path: /phpunit
-      - deploy:
-          name: Push image to Docker Hub
-          command: docker login -e "$DOCKER_EMAIL" -u "$DOCKER_USER" -p "$DOCKER_PASS"
-          command: docker push "dmitrix/dhdev"
+      - run: |
+         docker login -u $DOCKER_USER -p $DOCKER_PASS
+         docker push "dmitrix/dhdev"
