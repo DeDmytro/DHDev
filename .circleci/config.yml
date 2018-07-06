@@ -88,8 +88,10 @@ jobs:
             docker build -f docker/Dockerfile -t dmitrix/dhdev:$TAG  .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:$TAG
-
-      # Run Docker Image on Dev
+  deploy:
+    machine:
+      enabled: true
+    steps:
       - run:
           name: Run Docker Image on Dev
           command: |
