@@ -19,6 +19,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - add_ssh_keys
       - checkout
 
       - run: chmod -R 777 storage
@@ -85,9 +86,6 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:$TAG
 
-      - add_ssh_keys:
-          fingerprints:
-            - "3a:16:8c:b4:2f:9f:06:86:06:66:81:85:48:f6:f5:f0"
       - run:
           name: Run Docker Image on Dev
           command: |
