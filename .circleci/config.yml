@@ -89,6 +89,6 @@ jobs:
           name: Run Docker Image on Dev
           command: |
             ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-            ssh $DROPLET_USER@$DROPLET_IP "docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker run -d -p 80:80 dmitrix/dhdev:$TAG --name app"
+            ssh $DROPLET_USER@$DROPLET_IP "docker stop 0381629a3d5b && docker run -d -p 80:80 dmitrix/dhdev:$TAG --name app"
 
 
