@@ -85,6 +85,8 @@ jobs:
             docker build -f docker/Dockerfile -t dmitrix/dhdev:$TAG  .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:$TAG
+
+      # SSH to dev server, pull and run last build
       - deploy:
           name: Run Docker Image on Dev
           command: |
