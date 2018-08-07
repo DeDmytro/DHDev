@@ -51,7 +51,7 @@ jobs:
           key: yarn-{{ checksum "composer.json" }}
 
       - run: npm run production
-      - run: php artisan migrate
+      #- run: php artisan migrate
       # run tests!
       - run:
           command: |
@@ -77,21 +77,33 @@ jobs:
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
 
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
       # build and push Docker image
       - run:
-          name: Build and push Docker image
+          name: Start container and verify it's working
           command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build -f docker/Dockerfile -t dmitrix/dhdev:$TAG  .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push dmitrix/dhdev:$TAG
-
-      # SSH to dev server, pull and run last build
-      - deploy:
-          name: Run Docker Image on Dev
-          command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-            ssh $DROPLET_USER@$DROPLET_IP "docker stop app && docker rm app ; docker run -d -p 80:80 --name=app dmitrix/dhdev:$TAG"
+              set -x
+              docker-compose up -d
+#      - run:
+#          name: Build and push Docker image
+#          command: |
+#            TAG=0.1.$CIRCLE_BUILD_NUM
+#            docker build -f docker/php/Dockerfile -t dmitrix/dhdev:$TAG  .
+#            docker login -u $DOCKER_USER -p $DOCKER_PASS
+#            docker push dmitrix/dhdev:$TAG
+#
+#      # SSH to dev server, pull and run last build
+#      - deploy:
+#          name: Run Docker Image on Dev
+#          command: |
+#            TAG=0.1.$CIRCLE_BUILD_NUM
+#            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+#            ssh $DROPLET_USER@$DROPLET_IP "docker stop app && docker rm app ; docker run -d -p 80:80 --name=app dmitrix/dhdev:$TAG"
 
 
