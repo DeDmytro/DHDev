@@ -90,15 +90,15 @@ jobs:
           command: |
               set -x
               docker-compose up -d
-#      - run:
-#          name: Build and push Docker image
-#          command: |
-#            TAG=0.1.$CIRCLE_BUILD_NUM
-#            docker build -f docker/php/Dockerfile -t dmitrix/dhdev:$TAG  .
-#            docker login -u $DOCKER_USER -p $DOCKER_PASS
-#            docker push dmitrix/dhdev:$TAG
-#
-#      # SSH to dev server, pull and run last build
+      - run:
+          name: Build and push Docker image
+          command: |
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            docker build -f docker/php/Dockerfile -t dmitrix/dhdev:$TAG  .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push dmitrix/dhdev:$TAG
+
+      # SSH to dev server, pull and run last build
 #      - deploy:
 #          name: Run Docker Image on Dev
 #          command: |
