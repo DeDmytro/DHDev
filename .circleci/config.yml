@@ -2,6 +2,20 @@
 version: 2
 jobs:
   build:
+    docker:
+      # specify the version you desire here
+      - image: framgia/laravel-workspace
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/mysql:5.7.18
+        environment:
+          MYSQL_DATABASE: homestead
+          MYSQL_USER: homestead
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: root
+
     working_directory: ~/repo
 
     steps:
