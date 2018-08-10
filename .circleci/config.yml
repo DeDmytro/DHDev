@@ -84,12 +84,12 @@ jobs:
             chmod +x ~/docker-compose
             mv ~/docker-compose /usr/local/bin/docker-compose
 
-      # build and push Docker image
-      - run:
-          name: Start container and verify it's working
-          command: |
-            set -x
-            docker-compose up -d
+#      # build and push Docker image
+#      - run:
+#          name: Start container and verify it's working
+#          command: |
+#            set -x
+#            docker-compose up -d
 
       - run:
           name: Build and push Docker image
