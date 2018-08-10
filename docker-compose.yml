@@ -3,17 +3,20 @@ services:
 
   # The Application
   app:
-    build:
-      context: ./
-      dockerfile: docker/php/Dockerfile
-    working_dir: /var/www
-    depends_on:
-      - database
-    volumes:
-      - ./:/var/www
-      - ./.env.dev:/var/www/.env
-    links:
-      - database
+    image: dmitrix/dhdev:0.1.67
+    ports:
+      - 9000:9000
+#    build:
+#      context: ./
+#      dockerfile: docker/php/Dockerfile
+#    working_dir: /var/www
+#    depends_on:
+#      - database
+#    volumes:
+#      - ./:/var/www
+#      - ./.env.dev:/var/www/.env
+#    links:
+#      - database
 
   # The Web Server
   web:

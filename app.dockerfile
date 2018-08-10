@@ -15,5 +15,9 @@ RUN apt-get update && apt-get install -y libmcrypt-dev \
 #CMD php artisan route:cache
 #CMD php artisan migrate --force
 
+COPY / /var/www
+
+WORKDIR /var/www
+
 EXPOSE 9000
-ENTRYPOINT ["sh","docker/run.sh"]
+ENTRYPOINT ["sh","run.sh"]
