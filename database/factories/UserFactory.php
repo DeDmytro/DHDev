@@ -2,6 +2,8 @@
 
 use Faker\Generator as Faker;
 
+/* @var $factory Illuminate\Database\Eloquent\Factory */
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
