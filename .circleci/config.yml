@@ -5,7 +5,7 @@ jobs:
 
     docker:
       # specify the version you desire here
-      # - image: framgia/laravel-workspace
+      - image: framgia/laravel-workspace
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
