@@ -19,5 +19,7 @@ COPY / /var/www
 
 WORKDIR /var/www
 
+COPY .env.dev .env
+
 EXPOSE 9000
 ENTRYPOINT ["sh","run.sh"]

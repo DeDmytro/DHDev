@@ -96,6 +96,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -f docker/php/Dockerfile -t dmitrix/dhdev:$TAG  .
+            docker tag dmitrix/dhdev:$TAG dmitrix/dhdev:latest
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker tag dmitrix/dhdev:$TAG latest
             docker push dmitrix/dhdev:$TAG
@@ -106,6 +107,6 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-            ssh $DROPLET_USER@$DROPLET_IP "docker stop app && docker rm app ; docker run -d -p 80:80 --name=app dmitrix/dhdev:$TAG"
+            ssh $DROPLET_USER@$DROPLET_IP "docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) ; docker-compose up -d"
 
 
