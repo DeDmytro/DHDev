@@ -8,12 +8,12 @@ jobs:
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/mysql:5.7.18
-        environment:
-          MYSQL_DATABASE: homestead
-          MYSQL_USER: homestead
-          MYSQL_PASSWORD: secret
-          MYSQL_ROOT_PASSWORD: root
+#      - image: circleci/mysql:5.7.18
+#        environment:
+#          MYSQL_DATABASE: homestead
+#          MYSQL_USER: homestead
+#          MYSQL_PASSWORD: secret
+#          MYSQL_ROOT_PASSWORD: root
 
     working_directory: ~/repo
 
@@ -65,6 +65,7 @@ jobs:
           docker_layer_caching: true
           version: 17.05.0-ce
 
+  workflows:
       # use a primary image that already has Docker (recommended)
       # or install it during a build like we do here
       - run:
@@ -94,13 +95,12 @@ jobs:
           name: Build and push Docker image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build -f docker/php/Dockerfile -t dmitrix/dhdev:$TAG  .
+            docker build -f app.dockerfile -t dmitrix/dhdev:$TAG  .
             docker tag dmitrix/dhdev:$TAG dmitrix/dhdev:latest
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker tag dmitrix/dhdev:$TAG latest
             docker push dmitrix/dhdev:$TAG
 
-       SSH to dev server, pull and run last build
+     #  SSH to dev server, pull and run last build
       - deploy:
           name: Run Docker Image on Dev
           command: |
