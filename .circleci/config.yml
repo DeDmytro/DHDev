@@ -95,7 +95,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -f app.dockerfile -t dmitrix/dhdev:latest  .
-            docker tag dmitrix/dhdev:$TAG dmitrix/dhdev:$TAG
+            docker tag dmitrix/dhdev:latest dmitrix/dhdev:$TAG
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push dmitrix/dhdev:latest
 
