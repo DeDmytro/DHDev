@@ -105,6 +105,6 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-            ssh $DROPLET_USER@$DROPLET_IP "cd /var/www/DHDev && git pull && docker-compose up -d --force-recreate"
+            ssh $DROPLET_USER@$DROPLET_IP "cd /var/www/DHDev && git pull && docker-compose up -d --build --force-recreate"
 
 
