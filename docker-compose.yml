@@ -21,6 +21,7 @@ services:
 
   # The Web Server
   web:
+    container_name: web
     image: nginx:1.10
     working_dir: /var/www
     volumes:
@@ -32,6 +33,7 @@ services:
 
   # The Database
   database:
+    container_name: database
     image: mysql:5.7.22
     restart: always
     volumes:
@@ -45,6 +47,7 @@ services:
       MYSQL_PASSWORD: password
 
   redis:
+    container_name: redis
     image: redis:4.0-alpine
     ports:
     - 16379:6379
