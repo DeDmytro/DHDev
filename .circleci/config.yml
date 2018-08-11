@@ -97,7 +97,7 @@ jobs:
             docker build -f app.dockerfile -t dmitrix/dhdev:latest  .
             docker tag dmitrix/dhdev:$TAG dmitrix/dhdev:$TAG
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push dmitrix/dhdev:$TAG
+            docker push dmitrix/dhdev:latest
 
      #  SSH to dev server, pull and run last build
       - deploy:
