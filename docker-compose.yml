@@ -3,13 +3,13 @@ services:
 
   # The Application
   app:
-    image: dmitrix/dhdev:latest
-    ports:
-      - 9000:9000
-#    build:
-#      context: ./
-#      dockerfile: docker/php/Dockerfile
-#    working_dir: /var/www
+#    image: dmitrix/dhdev:latest
+#    ports:
+#      - 9000:9000
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
     depends_on:
       - database
 #    volumes:
