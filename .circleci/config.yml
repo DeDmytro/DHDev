@@ -1,25 +1,25 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/repo
-
-    docker:
-      # specify the version you desire here
-      - image: framgia/laravel-workspace
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/mysql:5.7.18
-        environment:
-          MYSQL_DATABASE: homestead
-          MYSQL_USER: homestead
-          MYSQL_PASSWORD: secret
-          MYSQL_ROOT_PASSWORD: root
-
-    steps:
-      - add_ssh_keys
-      - checkout
+#    working_directory: ~/repo
+#
+#    docker:
+#      # specify the version you desire here
+#      - image: framgia/laravel-workspace
+#
+#      # Specify service dependencies here if necessary
+#      # CircleCI maintains a library of pre-built images
+#      # documented at https://circleci.com/docs/2.0/circleci-images/
+#      - image: circleci/mysql:5.7.18
+#        environment:
+#          MYSQL_DATABASE: homestead
+#          MYSQL_USER: homestead
+#          MYSQL_PASSWORD: secret
+#          MYSQL_ROOT_PASSWORD: root
+#
+#    steps:
+#      - add_ssh_keys
+#      - checkout
 
 #      - run: chmod -R 777 storage
 #      - run: cp .env.dev .env
@@ -76,19 +76,19 @@ jobs:
 #            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
 #            mv /tmp/docker/* /usr/bin
 #
-#      - run:
-#          name: Install Docker Compose
-#          command: |
-#            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-#            chmod +x ~/docker-compose
-#            mv ~/docker-compose /usr/local/bin/docker-compose
+      - run:
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            mv ~/docker-compose /usr/local/bin/docker-compose
 
-#      # build and push Docker image
-#      - run:
-#          name: Start container and verify it's working
-#          command: |
-#            set -x
-#            docker-compose up -d
+      # build and push Docker image
+      - run:
+          name: Start container and verify it's working
+          command: |
+            set -x
+            docker-compose up -d
 
 #      - run:
 #          name: Build and push Docker image
