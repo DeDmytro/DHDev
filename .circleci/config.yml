@@ -21,67 +21,67 @@ jobs:
       - add_ssh_keys
       - checkout
 
-      - run: chmod -R 777 storage
-      - run: cp .env.dev .env
-
-      # Download and cache dependencies
-      # Composer
-      - restore_cache:
-          name: Restore composer cache
-          keys:
-          - composer-{{ checksum "composer.json" }}
-          - composer-
-      - run: composer install -n --prefer-dist
-      - save_cache:
-          name: Store composer cache
-          key: composer-{{ checksum "composer.json" }}
-          paths:
-            - vendor
-      # Yarn
-      - restore_cache:
-          name: Restore yarn cache
-          keys:
-            - yarn-{{ checksum "yarn.lock" }}
-            - yarn-
-      - run: yarn
-      - save_cache:
-          paths:
-            - node_modules
-          key: yarn-{{ checksum "composer.json" }}
-
-      - run: npm run production
-      #- run: php artisan migrate
-      # run tests!
-      - run:
-          command: |
-            mkdir -p /phpunit &&
-            php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-clover=phpunit/coverage-clover.xml --coverage-html=phpunit/coverage
-      - store_test_results:
-          path: /phpunit
-      - store_artifacts:
-          path: /phpunit
-
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 17.05.0-ce
+#      - run: chmod -R 777 storage
+#      - run: cp .env.dev .env
+#
+#      # Download and cache dependencies
+#      # Composer
+#      - restore_cache:
+#          name: Restore composer cache
+#          keys:
+#          - composer-{{ checksum "composer.json" }}
+#          - composer-
+#      - run: composer install -n --prefer-dist
+#      - save_cache:
+#          name: Store composer cache
+#          key: composer-{{ checksum "composer.json" }}
+#          paths:
+#            - vendor
+#      # Yarn
+#      - restore_cache:
+#          name: Restore yarn cache
+#          keys:
+#            - yarn-{{ checksum "yarn.lock" }}
+#            - yarn-
+#      - run: yarn
+#      - save_cache:
+#          paths:
+#            - node_modules
+#          key: yarn-{{ checksum "composer.json" }}
+#
+#      - run: npm run production
+#      #- run: php artisan migrate
+#      # run tests!
+#      - run:
+#          command: |
+#            mkdir -p /phpunit &&
+#            php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-clover=phpunit/coverage-clover.xml --coverage-html=phpunit/coverage
+#      - store_test_results:
+#          path: /phpunit
+#      - store_artifacts:
+#          path: /phpunit
+#
+#      - setup_remote_docker:
+#          docker_layer_caching: true
+#          version: 17.05.0-ce
 
       # use a primary image that already has Docker (recommended)
       # or install it during a build like we do here
-      - run:
-          name: Install Docker client
-          command: |
-            set -x
-            VER="17.03.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
-
-      - run:
-          name: Install Docker Compose
-          command: |
-            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
-            chmod +x ~/docker-compose
-            mv ~/docker-compose /usr/local/bin/docker-compose
+#      - run:
+#          name: Install Docker client
+#          command: |
+#            set -x
+#            VER="17.03.0-ce"
+#            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+#            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+#            mv /tmp/docker/* /usr/bin
+#
+#      - run:
+#          name: Install Docker Compose
+#          command: |
+#            curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+#            chmod +x ~/docker-compose
+#            mv ~/docker-compose /usr/local/bin/docker-compose
 
 #      # build and push Docker image
 #      - run:
@@ -90,14 +90,14 @@ jobs:
 #            set -x
 #            docker-compose up -d
 
-      - run:
-          name: Build and push Docker image
-          command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build -f app.dockerfile -t dmitrix/dhdev:latest  .
-            docker tag dmitrix/dhdev:latest dmitrix/dhdev:$TAG
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push dmitrix/dhdev:latest
+#      - run:
+#          name: Build and push Docker image
+#          command: |
+#            TAG=0.1.$CIRCLE_BUILD_NUM
+#            docker build -f app.dockerfile -t dmitrix/dhdev:latest  .
+#            docker tag dmitrix/dhdev:latest dmitrix/dhdev:$TAG
+#            docker login -u $DOCKER_USER -p $DOCKER_PASS
+#            docker push dmitrix/dhdev:latest
 
      #  SSH to dev server, pull and run last build
       - deploy:
