@@ -60,9 +60,9 @@ jobs:
 #      - store_artifacts:
 #          path: /phpunit
 #
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 17.05.0-ce
+#      - setup_remote_docker:
+#          docker_layer_caching: true
+#          version: 17.05.0-ce
 
       # use a primary image that already has Docker (recommended)
       # or install it during a build like we do here
